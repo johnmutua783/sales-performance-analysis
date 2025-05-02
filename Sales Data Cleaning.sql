@@ -18,7 +18,7 @@ SELECT
   SUM(CASE WHEN POSTALCODE IS NULL OR POSTALCODE = '' THEN 1 ELSE 0 END) AS missing_postalcode
 FROM sales_data;
 
--- Optional: View exact rows with missing data in specific columns
+-- View exact rows with missing data in specific columns
 SELECT * FROM sales_data WHERE POSTALCODE IS NULL OR POSTALCODE = '';
 SELECT * FROM sales_data WHERE (STATE IS NULL OR STATE = '') AND (CITY IS NULL OR CITY = '');
 
