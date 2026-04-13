@@ -21,7 +21,7 @@ The dataset contains sales transaction records including:
 
 ## Tools Used
 
-* SQL (MySQL)
+* SQL 
 
 ---
 
