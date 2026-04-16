@@ -60,29 +60,33 @@ The cleaned dataset was analyzed to answer key business questions:
 
 ## Key Insights
 
-* Certain **product lines generate significantly higher revenue**, indicating strong-performing product categories.
+- The **Classic Cars product line generated the highest revenue**, significantly outperforming other categories, making it the primary driver of overall sales.
 
-* Sales show clear **seasonal patterns across months and quarters**, suggesting demand fluctuations throughout the year.
+- Sales peaked during **Q4 (October–December)**, indicating strong seasonal demand likely driven by end-of-year purchasing behavior.
 
-* A small group of **top customers contributes a large portion of total revenue**, indicating a concentrated customer base.
+- A small number of **high-value customers contributed a disproportionate share of total revenue**, highlighting customer concentration risk.
 
-* The **deal size distribution shows that medium and large deals generate most of the revenue**, highlighting the importance of high-value transactions.
+- The **EMEA region recorded the highest total sales**, while some regions lagged behind, indicating uneven market performance.
 
-* Regional performance varies significantly, with some territories outperforming others in total sales.
+- **Medium and Large deal sizes accounted for the majority of revenue**, while small deals contributed minimally to overall sales performance.
+
+- Monthly sales trends show **consistent growth toward the end of each year**, reinforcing the presence of seasonal purchasing patterns.
 
 ---
 
 ## Recommendations
 
-* Focus marketing efforts on **high-performing product lines** to maximize revenue.
+- Increase investment in **high-performing product lines such as Classic Cars** through targeted marketing and inventory expansion.
 
-* Develop strategies to **retain and grow top customers**, as they contribute a large share of revenue.
+- Leverage **Q4 seasonal demand** by launching promotions, discounts, and campaigns earlier in the year to maximize revenue.
 
-* Optimize sales strategies based on **seasonal demand patterns**.
+- Reduce dependency on a few key customers by **diversifying the customer base** and improving engagement with mid-tier clients.
 
-* Strengthen performance in underperforming territories to balance revenue distribution.
+- Improve performance in underperforming regions by **analyzing regional market challenges and adjusting sales strategies accordingly**.
 
-* Encourage higher-value deals through **upselling and bundling strategies**.
+- Focus on **upselling and bundling strategies** to shift more customers toward medium and large deal sizes.
+
+- Implement data-driven sales forecasting to better align inventory and marketing efforts with **seasonal demand patterns**.
 
 ---
 
