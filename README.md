@@ -21,9 +21,8 @@ The dataset contains sales transaction records including:
 
 ## Tools Used
 
-* MySQL / SQL
+* SQL
 * Power BI
-* DAX
 
 ---
 
