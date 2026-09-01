@@ -1,52 +1,190 @@
--- STEP 1: Create a working copy of the dataset to preserve the original
-CREATE TABLE sales_data LIKE sales_data_sample;
+-- SALES PERFORMANCE & CUSTOMER REVENUE ANALYSIS
+-- Data Cleaning & Validation
 
--- Populate the working table with the original data
-INSERT INTO sales_data
-SELECT * FROM sales_data_sample;
+-- 1. Create clean table
+-- Convert ORDERDATE to DATE
 
--- STEP 2: Preview first few records to understand structure
-SELECT * FROM sales_data LIMIT 10;
-
--- STEP 3: View column names and data types
-DESCRIBE sales_data;
-
--- STEP 4: Check for missing values in key address-related columns
+CREATE TABLE sales_clean AS
 SELECT
-  SUM(CASE WHEN ADDRESSLINE2 IS NULL OR ADDRESSLINE2 = '' THEN 1 ELSE 0 END) AS missing_addressline2,
-  SUM(CASE WHEN STATE IS NULL OR STATE = '' THEN 1 ELSE 0 END) AS missing_state,
-  SUM(CASE WHEN POSTALCODE IS NULL OR POSTALCODE = '' THEN 1 ELSE 0 END) AS missing_postalcode
-FROM sales_data;
+    ORDERNUMBER,
+    QUANTITYORDERED,
+    PRICEEACH,
+    ORDERLINENUMBER,
+    SALES,
+    
+    STR_TO_DATE(ORDERDATE, '%m/%d/%Y %H:%i') AS ORDERDATE,
+    
+    STATUS,
+    QTR_ID,
+    MONTH_ID,
+    YEAR_ID,
+    PRODUCTLINE,
+    MSRP,
+    PRODUCTCODE,
+    CUSTOMERNAME,
+    PHONE,
+    ADDRESSLINE1,
+    STATE,
+    POSTALCODE,
+    CITY,
+    COUNTRY,
+    TERRITORY,
+    CONTACTLASTNAME,
+    CONTACTFIRSTNAME,
+    DEALSIZE
+FROM sales_raw;
 
--- View exact rows with missing data in specific columns
-SELECT * FROM sales_data WHERE POSTALCODE IS NULL OR POSTALCODE = '';
-SELECT * FROM sales_data WHERE (STATE IS NULL OR STATE = '') AND (CITY IS NULL OR CITY = '');
 
--- STEP 5: Standardize phone numbers by removing all non-numeric characters
-UPDATE sales_data
-SET phone = REGEXP_REPLACE(phone, '[^0-9]', '');
+-- 2. Check total number of records
 
--- Check distribution of phone number lengths (helps decide on formatting)
-SELECT LENGTH(phone) AS length, COUNT(*) AS count
-FROM sales_data
-GROUP BY LENGTH(phone)
-ORDER BY count DESC;
+SELECT COUNT(*) AS total_rows
+FROM sales_clean;
 
--- STEP 6: Standardize the date format (e.g. convert to DATE type if in text)
-UPDATE sales_data 
-SET ORDERDATE = DATE(STR_TO_DATE(ORDERDATE, '%m/%d/%Y %H:%i')) 
-WHERE ORDERDATE IS NOT NULL;
 
--- Confirm conversion worked
-SELECT DISTINCT ORDERDATE FROM sales_data LIMIT 10;
+-- 3. Check column names and data types
 
--- STEP 7: Detect duplicates based on ORDERNUMBER and PRODUCTCODE
-SELECT ORDERNUMBER, PRODUCTCODE, COUNT(*) AS times
-FROM sales_data
-GROUP BY ORDERNUMBER, PRODUCTCODE
+DESCRIBE sales_clean;
+
+
+
+
+-- 4. Check the order date range
+
+SELECT
+    MIN(ORDERDATE) AS earliest_order,
+    MAX(ORDERDATE) AS latest_order
+FROM sales_clean;
+
+
+-- 5. Validate sales figures
+
+SELECT
+    ROUND(SUM(SALES), 2) AS total_sales,
+    ROUND(AVG(SALES), 2) AS average_sales,
+    MIN(SALES) AS minimum_sales,
+    MAX(SALES) AS maximum_sales
+FROM sales_clean;
+
+
+-- 6. Investigate missing geographic fields
+
+SELECT
+    COUNTRY,
+    COUNT(*) AS total_records,
+    SUM(CASE WHEN TRIM(STATE) = '' THEN 1 ELSE 0 END) AS missing_state,
+    SUM(CASE WHEN TRIM(POSTALCODE) = '' THEN 1 ELSE 0 END) AS missing_postalcode
+FROM sales_clean
+GROUP BY COUNTRY
+ORDER BY missing_state DESC;
+
+
+-- 7. Review records with missing postal codes
+
+SELECT
+    ORDERNUMBER,
+    CUSTOMERNAME,
+    ADDRESSLINE1,
+    CITY,
+    STATE,
+    POSTALCODE,
+    COUNTRY,
+    SALES
+FROM sales_clean
+WHERE POSTALCODE IS NULL
+   OR TRIM(POSTALCODE) = ''
+ORDER BY SALES DESC;
+
+
+-- 8. Check for invalid numeric values
+
+SELECT
+    COUNT(*) AS total_rows,
+    SUM(CASE WHEN QUANTITYORDERED <= 0 THEN 1 ELSE 0 END) AS invalid_quantity,
+    SUM(CASE WHEN PRICEEACH < 0 THEN 1 ELSE 0 END) AS negative_price,
+    SUM(CASE WHEN SALES < 0 THEN 1 ELSE 0 END) AS negative_sales,
+    SUM(CASE WHEN MSRP < 0 THEN 1 ELSE 0 END) AS negative_msrp
+FROM sales_clean;
+
+
+-- 9. Check for blank categorical values
+
+SELECT
+    SUM(CASE WHEN TRIM(STATUS) = '' THEN 1 ELSE 0 END) AS blank_status,
+    SUM(CASE WHEN TRIM(PRODUCTLINE) = '' THEN 1 ELSE 0 END) AS blank_productline,
+    SUM(CASE WHEN TRIM(CUSTOMERNAME) = '' THEN 1 ELSE 0 END) AS blank_customer,
+    SUM(CASE WHEN TRIM(COUNTRY) = '' THEN 1 ELSE 0 END) AS blank_country,
+    SUM(CASE WHEN TRIM(TERRITORY) = '' THEN 1 ELSE 0 END) AS blank_territory,
+    SUM(CASE WHEN TRIM(DEALSIZE) = '' THEN 1 ELSE 0 END) AS blank_dealsize
+FROM sales_clean;
+
+
+-- 10. Check for exact duplicate records
+
+SELECT
+    ORDERNUMBER,
+    QUANTITYORDERED,
+    PRICEEACH,
+    ORDERLINENUMBER,
+    SALES,
+    ORDERDATE,
+    STATUS,
+    QTR_ID,
+    MONTH_ID,
+    YEAR_ID,
+    PRODUCTLINE,
+    MSRP,
+    PRODUCTCODE,
+    CUSTOMERNAME,
+    PHONE,
+    ADDRESSLINE1,
+    STATE,
+    POSTALCODE,
+    CITY,
+    COUNTRY,
+    TERRITORY,
+    CONTACTLASTNAME,
+    CONTACTFIRSTNAME,
+    DEALSIZE,
+    COUNT(*) AS duplicate_count
+FROM sales_clean
+GROUP BY
+    ORDERNUMBER,
+    QUANTITYORDERED,
+    PRICEEACH,
+    ORDERLINENUMBER,
+    SALES,
+    ORDERDATE,
+    STATUS,
+    QTR_ID,
+    MONTH_ID,
+    YEAR_ID,
+    PRODUCTLINE,
+    MSRP,
+    PRODUCTCODE,
+    CUSTOMERNAME,
+    PHONE,
+    ADDRESSLINE1,
+    STATE,
+    POSTALCODE,
+    CITY,
+    COUNTRY,
+    TERRITORY,
+    CONTACTLASTNAME,
+    CONTACTFIRSTNAME,
+    DEALSIZE
 HAVING COUNT(*) > 1;
 
--- STEP 8: Drop address-related columns with too many missing values
-ALTER TABLE sales_data DROP COLUMN ADDRESSLINE2;
-ALTER TABLE sales_data DROP COLUMN STATE;
-ALTER TABLE sales_data DROP COLUMN POSTALCODE;
+
+-- 11. Check for duplicate order lines
+-- ORDERNUMBER can repeat because orders contain multiple lines
+
+SELECT
+    ORDERNUMBER,
+    ORDERLINENUMBER,
+    COUNT(*) AS duplicate_count
+FROM sales_clean
+GROUP BY
+    ORDERNUMBER,
+    ORDERLINENUMBER
+HAVING COUNT(*) > 1;
+
