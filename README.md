@@ -2,7 +2,7 @@
 
 ## Objective
 
-The goal of this project was to analyze sales transaction data to identify revenue trends, customer behavior, and product performance in order to support data-driven business decisions.
+The goal of this project was to analyze sales transaction data to identify revenue trends, customer behavior, product performance, and geographic patterns in order to support data-driven business decisions.
 
 ---
 
@@ -14,21 +14,24 @@ The dataset contains sales transaction records including:
 * Customer information
 * Order details
 * Sales revenue
-* Territory and region data
+* Territory and country data
 * Deal size classification
 
 ---
 
 ## Tools Used
 
-* SQL 
+* MySQL / SQL
+* Power BI
+* DAX
 
 ---
 
 ## Project Structure
 
-* `sales_cleaning.sql` - Data cleaning and preprocessing
-* `sales_analysis.sql` - Exploratory data analysis and insights
+* `sales_cleaning.sql` - Data cleaning and validation
+* `sales_analysis.sql` - Exploratory data analysis and business insights
+* `sales_performance_dashboard.pbix` - Interactive Power BI dashboard
 
 ---
 
@@ -36,12 +39,13 @@ The dataset contains sales transaction records including:
 
 To ensure data quality and consistency, the following steps were performed:
 
-* Created a working copy of the dataset to preserve original data
-* Handled missing values in address-related fields
-* Standardized phone numbers by removing non-numeric characters
-* Converted order date into proper DATE format
+* Created a working copy of the dataset while preserving the original data
+* Converted order date from text into a proper DATE format
+* Investigated missing values in geographic fields
+* Validated numeric fields for invalid or negative values
+* Checked categorical fields for blank values
 * Identified potential duplicate records
-* Removed unnecessary columns with excessive missing values (ADDRESSLINE2, STATE, POSTALCODE)
+* Validated sales totals before and after cleaning
 
 ---
 
@@ -49,47 +53,75 @@ To ensure data quality and consistency, the following steps were performed:
 
 The cleaned dataset was analyzed to answer key business questions:
 
-* What are the total and average sales performance metrics?
+* What are the overall revenue and order performance?
 * Which product lines generate the highest revenue?
-* How do sales vary across quarters and months?
-* Who are the top customers by revenue contribution?
-* How do sales differ by territory and region?
-* How does deal size impact revenue?
+* Which customers contribute the most revenue?
+* Which countries generate the most revenue?
+* How does revenue change over time?
+* Which months generate the highest revenue?
+* How has revenue changed year over year?
+* Is revenue growth driven by order volume or revenue per order?
 
 ---
 
 ## Key Insights
 
-- The **Classic Cars product line generated the highest revenue**, significantly outperforming other categories, making it the primary driver of overall sales.
+- The **Classic Cars product line generated the highest revenue**, contributing approximately **39.07%** of total revenue.
 
-- Sales peaked during **Q4 (October–December)**, indicating strong seasonal demand likely driven by end-of-year purchasing behavior.
+- The **USA generated the highest country-level revenue**, contributing approximately **36.16%** of total revenue.
 
-- A small number of **high-value customers contributed a disproportionate share of total revenue**, highlighting customer concentration risk.
+- The **top 10 customers contributed approximately 29.45%** of total revenue, showing a meaningful concentration of revenue among major customers.
 
-- The **EMEA region recorded the highest total sales**, while some regions lagged behind, indicating uneven market performance.
+- **November was the strongest month**, generating approximately **21.12%** of total revenue.
 
-- **Medium and Large deal sizes accounted for the majority of revenue**, while small deals contributed minimally to overall sales performance.
+- Revenue increased from approximately **$3.52M in 2003 to $4.72M in 2004**, representing approximately **34.32% growth**.
 
-- Monthly sales trends show **consistent growth toward the end of each year**, reinforcing the presence of seasonal purchasing patterns.
+- The dataset only contains **January–May 2005**, so full-year 2005 revenue should not be directly compared with the complete years of 2003 and 2004.
+
+- Comparing January–May across the three years, revenue increased from approximately **$839K in 2003 to $1.79M in 2005**.
+
+- Revenue per order remained relatively stable during the January–May comparison, suggesting that **increased order volume was an important driver of revenue growth**.
 
 ---
 
 ## Recommendations
 
-- Increase investment in **high-performing product lines such as Classic Cars** through targeted marketing and inventory expansion.
+- Increase investment in high-performing product lines such as **Classic Cars** through targeted marketing and inventory planning.
 
-- Leverage **Q4 seasonal demand** by launching promotions, discounts, and campaigns earlier in the year to maximize revenue.
+- Prepare inventory and marketing campaigns ahead of **November and the broader Q4 period** to take advantage of seasonal demand.
 
-- Reduce dependency on a few key customers by **diversifying the customer base** and improving engagement with mid-tier clients.
+- Reduce dependency on major customers by strengthening relationships with mid-tier customers and expanding the customer base.
 
-- Improve performance in underperforming regions by **analyzing regional market challenges and adjusting sales strategies accordingly**.
+- Investigate high-performing countries and identify opportunities to expand sales in markets with lower revenue contribution.
 
-- Focus on **upselling and bundling strategies** to shift more customers toward medium and large deal sizes.
+- Monitor order volume and customer purchasing frequency since order growth appears to be an important contributor to revenue growth.
 
-- Implement data-driven sales forecasting to better align inventory and marketing efforts with **seasonal demand patterns**.
+---
+
+## Power BI Dashboard
+
+The cleaned dataset was connected to Power BI to create an interactive sales performance dashboard.
+
+The dashboard includes:
+
+* Total Revenue
+* Total Orders
+* Total Customers
+* Total Products
+* Average Revenue per Order
+* Revenue by Product Line
+* Monthly Revenue Trend
+* Revenue by Country
+* Year-based filtering
+
+The dashboard allows users to interactively explore sales performance across different years, products, customers, and geographic markets.
 
 ---
 
 ## Conclusion
 
-This project demonstrates how sales transaction data can be transformed into actionable business insights. The analysis provides a clear understanding of revenue drivers, customer behavior, and product performance, supporting better strategic decision-making.
+This project demonstrates an end-to-end data analytics workflow using SQL and Power BI.
+
+The process involved data cleaning and validation in MySQL, exploratory analysis using SQL, and interactive visualization using Power BI and DAX.
+
+The final analysis provides a clearer understanding of the company's revenue drivers, customer concentration, product performance, geographic contribution, and sales trends, supporting more informed business decision-making.
