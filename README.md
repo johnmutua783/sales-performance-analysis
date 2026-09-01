@@ -107,21 +107,21 @@ The cleaned dataset was connected to Power BI to create an interactive sales per
 
 ### Annual Revenue Trend
 
-![Revenue Analysis](images/Annual_Revenue_Trend.png)
+![Revenue Analysis per Year](images/Annual_Revenue_Trend.png)
 
 ### Revenue by Country
 
-![Customer and Product Analysis](images/Revenue_by_Country.png)
+![Revenue Analysis per Country](images/Revenue_by_Country.png)
 
 ### Revenue by Product Line Over Time
 
-![Customer and Product Analysis](images/Revenue_by_Product_Line_Over_Time.png)
+![Product Analysis](images/Revenue_by_Product_Line_Over_Time.png)
 ---
 
 ## Conclusion
 
 This project demonstrates an end-to-end data analytics workflow using SQL and Power BI.
 
-The process involved data cleaning and validation in MySQL, exploratory analysis using SQL, and interactive visualization using Power BI and DAX.
+The process involved data cleaning and validation in MySQL, exploratory analysis using SQL, and interactive visualization using Power BI.
 
 The final analysis provides a clearer understanding of the company's revenue drivers, customer concentration, product performance, geographic contribution, and sales trends, supporting more informed business decision-making.
