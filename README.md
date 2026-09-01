@@ -101,21 +101,21 @@ The cleaned dataset was analyzed to answer key business questions:
 
 The cleaned dataset was connected to Power BI to create an interactive sales performance dashboard.
 
-The dashboard includes:
+### Revenue by Product Line
 
-* Total Revenue
-* Total Orders
-* Total Customers
-* Total Products
-* Average Revenue per Order
-* Revenue by Product Line
-* Monthly Revenue Trend
-* Revenue by Country
-* Revenue by Product Line Over Time
-* Year-based filtering
+![Sales Performance Dashboard](images/Revenue_by_Product_Line.png)
 
-The dashboard allows users to interactively explore sales performance across different years, products, customers, and geographic markets.
+### Annual Revenue Trend
 
+![Revenue Analysis](images/Annual_Revenue_Trend.png)
+
+### Revenue by Country
+
+![Customer and Product Analysis](images/Revenue_by_Country.png)
+
+### Revenue by Product Line Over Time
+
+![Customer and Product Analysis](images/Revenue_by_Product_Line_Over_Time.png)
 ---
 
 ## Conclusion
