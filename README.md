@@ -112,6 +112,7 @@ The dashboard includes:
 * Revenue by Product Line
 * Monthly Revenue Trend
 * Revenue by Country
+* Revenue by Product Line Over Time
 * Year-based filtering
 
 The dashboard allows users to interactively explore sales performance across different years, products, customers, and geographic markets.
